@@ -10,14 +10,23 @@ import {
 import { Button } from '../components/Button';
 import { Card } from '../components/Card';
 
+interface InputData {
+  id: string,
+  content: string
+}
+
 export function Home(){
   const [newInput, setInput] = useState('')
-  const [historyInput, setNewInput] = useState([])
+  const [historyInput, setNewInput] = useState<InputData[]>([])
   const [grettings, setGrettings] = useState('')
 
   function handleAddNewInput(){
     if (newInput !== ''){
-      setNewInput(before => [...before, newInput]);
+      const data = {
+        id: String(new Date().getTime()),
+        content: newInput
+      }
+      setNewInput(before => [...before, data]);
       setInput('')
     }
   }
@@ -43,7 +52,7 @@ export function Home(){
     <SafeAreaView style= {styles.container}>
 
       <Text style = {[styles.title, {padding:20}, {alignSelf: 'center'}]}>Bem vindo</Text>
-      <Text> { grettings } </Text>
+      <Text style = {[styles.title, {fontSize: 20, marginBottom: 10}]}> { grettings } </Text>
       <TextInput 
         style = {styles.input}
         placeholder = 'Digite algo'
@@ -52,7 +61,7 @@ export function Home(){
         value = {newInput}
       />
 
-      <Button text = {'Enter'} onPress = {handleAddNewInput}/>
+      <Button text = 'Enter' onPress = {handleAddNewInput}/>
 
       <Text style = {[styles.title, {marginTop: 20}]}>
         Histórico de digitação:
@@ -60,10 +69,11 @@ export function Home(){
 
       <FlatList
         data = {historyInput}
-        key = {item => item}
+        keyExtractor = {item => item.id}
         renderItem = {({ item }) => (
-          <Card key={item} content = {item}/>
+          <Card key={item.id} content = {item.content}/>
         )}
+        inverted = {true}
       />
 
     </SafeAreaView>
@@ -73,22 +83,22 @@ export function Home(){
 const styles = StyleSheet.create({
   container:{
     flex: 1,
-    backgroundColor: '#0066cc',
+    backgroundColor: '#333',
     paddingVertical: 20,
     paddingHorizontal: 20
   },
   title:{
     fontSize: 30,
     fontWeight: 'bold',
-    color: '#333',
+    color: '#fafafa',
     alignContent: 'center'
   },
   input: {
     fontSize: 20,
     padding: 18,
     marginTop: 6,
-    color: '#fff',
-    backgroundColor: '#a0a',
+    color: '#fafafa',
+    backgroundColor: '#666',
     borderRadius: 7
   },
 })

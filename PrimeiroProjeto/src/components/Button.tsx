@@ -2,15 +2,20 @@ import React from 'react';
 import {
 	TouchableOpacity,
 	Text,
-	StyleSheet
+	StyleSheet,
+	TouchableOpacityProps
 } from 'react-native';
 
-export function Button({text,onPress}){
+interface ButtonProps extends TouchableOpacityProps{
+	text: string
+}
+
+export function Button({text, ...rest}: ButtonProps){
 	return(
 		<TouchableOpacity 
 			style = {styles.button}
 			activeOpacity = {0.5}
-			onPress = {onPress}
+			{...rest}
 		>
 			<Text style = {styles.button_text}>{text}</Text>
 		</TouchableOpacity>
@@ -20,7 +25,7 @@ export function Button({text,onPress}){
 const styles = StyleSheet.create({
   button:{
     marginTop: 20,
-    backgroundColor: '#666',
+    backgroundColor: '#06c',
     padding: 10,
     borderRadius: 7,
     alignItems: 'center'

@@ -5,7 +5,11 @@ import {
 	StyleSheet
 } from 'react-native';
 
-export function Card({content}){
+interface CardProps{
+	content: string
+}
+
+export function Card({content}: CardProps){
 	return(
 		<TouchableOpacity style = {styles.historyList}>
 			<Text style = {styles.card_text}>
@@ -18,13 +22,11 @@ export function Card({content}){
 const styles = StyleSheet.create({
 	historyList:{
     color: '#fafafa',
-    backgroundColor: '#a0a',
     padding: 10,
-    fontSize: 17,
-    fontWeight: 'bold',
-    marginTop: 15,
-    alignContent: 'center',
-    borderRadius:7
+	fontSize: 20,
+    marginTop: 6,
+    backgroundColor: '#666',
+    borderRadius: 7
   },
 	card_text:{
 		color: '#fafafa',
