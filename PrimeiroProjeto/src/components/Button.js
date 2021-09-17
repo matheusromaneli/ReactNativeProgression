@@ -20,7 +20,7 @@ export function Button({text,onPress}){
 const styles = StyleSheet.create({
   button:{
     marginTop: 20,
-    backgroundColor: '#a3a3a3',
+    backgroundColor: '#666',
     padding: 10,
     borderRadius: 7,
     alignItems: 'center'
