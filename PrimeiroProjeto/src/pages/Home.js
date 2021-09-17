@@ -1,17 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   SafeAreaView, 
   Text, 
   TextInput,
-  TouchableOpacity,
-  StyleSheet
+  StyleSheet,
+  FlatList
 } from 'react-native';
+
 import { Button } from '../components/Button';
 import { Card } from '../components/Card';
 
 export function Home(){
   const [newInput, setInput] = useState('')
   const [historyInput, setNewInput] = useState([])
+  const [grettings, setGrettings] = useState('')
 
   function handleAddNewInput(){
     if (newInput !== ''){
@@ -20,11 +22,28 @@ export function Home(){
     }
   }
 
+  useEffect(() => {
+    const currentHour = new Date().getHours();
+
+    if(currentHour < 6){
+      setGrettings('Boa madrugada');
+    }
+    else if(currentHour < 12){
+      setGrettings('Bom Dia');
+    }
+    else if(currentHour < 18){
+      setGrettings('Boa Tarde');
+    }
+    else{
+      setGrettings('Boa Noite');
+    }
+  }, [])
+
   return(
     <SafeAreaView style= {styles.container}>
 
       <Text style = {[styles.title, {padding:20}, {alignSelf: 'center'}]}>Bem vindo</Text>
-
+      <Text> { grettings } </Text>
       <TextInput 
         style = {styles.input}
         placeholder = 'Digite algo'
@@ -39,11 +58,13 @@ export function Home(){
         Histórico de digitação:
       </Text>
 
-      {
-        historyInput.map( input => (
-          <Card content = {input}/>
-        ))
-      }
+      <FlatList
+        data = {historyInput}
+        key = {item => item}
+        renderItem = {({ item }) => (
+          <Card key={item} content = {item}/>
+        )}
+      />
 
     </SafeAreaView>
   )

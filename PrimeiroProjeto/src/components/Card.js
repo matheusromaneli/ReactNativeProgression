@@ -7,7 +7,7 @@ import {
 
 export function Card({content}){
 	return(
-		<TouchableOpacity key={content} style = {styles.historyList}>
+		<TouchableOpacity style = {styles.historyList}>
 			<Text style = {styles.card_text}>
 				{content}
 			</Text>
