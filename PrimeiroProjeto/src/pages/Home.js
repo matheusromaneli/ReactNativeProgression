@@ -3,48 +3,45 @@ import {
   SafeAreaView, 
   Text, 
   TextInput,
-  TouchableOpacity
+  TouchableOpacity,
+  StyleSheet
 } from 'react-native';
+import { Button } from '../components/Button';
+import { Card } from '../components/Card';
 
 export function Home(){
   const [newInput, setInput] = useState('')
   const [historyInput, setNewInput] = useState([])
 
   function handleAddNewInput(){
-    setNewInput(before => [...before, newInput]);
+    if (newInput !== ''){
+      setNewInput(before => [...before, newInput]);
+      setInput('')
+    }
   }
 
   return(
     <SafeAreaView style= {styles.container}>
 
-      <Text style = {styles.title}>Bem vindo</Text>
+      <Text style = {[styles.title, {padding:20}, {alignSelf: 'center'}]}>Bem vindo</Text>
 
       <TextInput 
         style = {styles.input}
         placeholder = 'Digite algo'
         placeholderTextColor = '#fefefe'
-        onChangeText = {setInput} 
+        onChangeText = {setInput}
+        value = {newInput}
       />
 
-      <TouchableOpacity 
-        style = {styles.button}
-        activeOpacity = {0.5}
-        onPress = {handleAddNewInput}
-      >
-        <Text style = {styles.button_text}>Buscar</Text>
-      </TouchableOpacity>
+      <Button text = {'Enter'} onPress = {handleAddNewInput}/>
 
-      <Text styles = {[styles.title, {marginTop: 20}]}>
+      <Text style = {[styles.title, {marginTop: 20}]}>
         Histórico de digitação:
       </Text>
 
       {
         historyInput.map( input => (
-          <TouchableOpacity key={input} styles = {styles.historyList}>
-            <Text styles = {styles.button_text}>
-              {input}
-            </Text>
-          </TouchableOpacity>
+          <Card content = {input}/>
         ))
       }
 
@@ -57,34 +54,20 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#0066cc',
     paddingVertical: 20,
-    paddingHorizontal: 40
+    paddingHorizontal: 20
   },
   title:{
-    fontSize: 20,
+    fontSize: 30,
     fontWeight: 'bold',
-    color: '#666'
+    color: '#333',
+    alignContent: 'center'
   },
   input: {
-    padding: 15,
+    fontSize: 20,
+    padding: 18,
     marginTop: 6,
-    color: '#fff'
+    color: '#fff',
+    backgroundColor: '#a0a',
+    borderRadius: 7
   },
-  button:{
-    backgroundColor: 'a3a3a3',
-    padding: 10,
-    borderRadius: 7,
-    alignItem: center
-  },
-  button_text:{
-    color: '#fafafa',
-    fontSize: 15
-  },
-  historyList:{
-    color: '#fafafa',
-    backgroundColor: '#a3a3a3',
-    padding: 10,
-    fontSize: 17,
-    fontWeight: 'bold',
-    marginTop: 5
-  }
 })
