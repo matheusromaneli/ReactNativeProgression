@@ -31,6 +31,12 @@ export function Home(){
     }
   }
 
+  function handleRemoveInput(id: string){
+    setNewInput(oldState => oldState.filter(
+      input => input.id !== id
+    ))
+  }
+
   useEffect(() => {
     const currentHour = new Date().getHours();
 
@@ -71,9 +77,12 @@ export function Home(){
         data = {historyInput}
         keyExtractor = {item => item.id}
         renderItem = {({ item }) => (
-          <Card key={item.id} content = {item.content}/>
+          <Card 
+            key={item.id} 
+            content = {item.content}
+            onPress = {() => handleRemoveInput(item.id)}
+          />
         )}
-        inverted = {true}
       />
 
     </SafeAreaView>

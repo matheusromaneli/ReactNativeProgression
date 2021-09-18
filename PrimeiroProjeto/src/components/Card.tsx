@@ -2,16 +2,20 @@ import React from 'react';
 import {
 	TouchableOpacity,
 	Text,
-	StyleSheet
+	StyleSheet,
+	TouchableOpacityProps
 } from 'react-native';
 
-interface CardProps{
+interface CardProps extends TouchableOpacityProps{
 	content: string
 }
 
-export function Card({content}: CardProps){
+export function Card({content, ...rest}: CardProps){
 	return(
-		<TouchableOpacity style = {styles.historyList}>
+		<TouchableOpacity 
+			style = {styles.historyList}
+			{...rest}
+		>
 			<Text style = {styles.card_text}>
 				{content}
 			</Text>
