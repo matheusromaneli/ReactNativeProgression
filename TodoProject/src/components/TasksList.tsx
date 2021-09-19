@@ -20,7 +20,7 @@ interface TasksListProps {
 
 export function TasksList({ tasks, toggleTaskDone, removeTask }: TasksListProps) {
   
-  useEffect(() => {}, [tasks.toString])
+  const [aux, setAux] = useState(false)
 
   return (
     <FlatList
@@ -42,6 +42,7 @@ export function TasksList({ tasks, toggleTaskDone, removeTask }: TasksListProps)
                   style={styles.taskButton}
                   onPress = {() => {
                     toggleTaskDone(item.id);
+                    setAux(!aux)
                   }
                   }
                 >
