@@ -1,3 +1,6 @@
 [submodule "ToDo2"]
 	path = ToDo2
 	url = https://github.com/matheusromaneli/ToDo.git
+[submodule "GoFinances"]
+	path = GoFinances
+	url = https://github.com/matheusromaneli/GoFinances.git
